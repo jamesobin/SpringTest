@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.jamesobin.spring.test.mybatis.repository.RealEstateRepository">
+ 	<select id="selectRealEstate" resultType="com.jamesobin.spring.test.mybatis.domain.RealEstate" parameterType="int">
+ 		SELECT
+ 			`id`
+ 			, `realtorId`
+ 			, `address`
+ 			, `area`
+ 			, `type`
+ 			, `price`
+ 			, `rentPrice`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 		FROM
+ 			`real_estate`
+ 		WHERE
+ 			`id` = #{id}
+ 	</select>
+ 	
+ 	<select id="selectRealEstateByRentPrice" resultType="com.jamesobin.spring.test.mybatis.domain.RealEstate" parameterType="int">
+ 		SELECT
+ 			`id`
+ 			, `realtorId`
+ 			, `address`
+ 			, `area`
+ 			, `type`
+ 			, `price`
+ 			, `rentPrice`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 		FROM
+ 			`real_estate`
+ 		WHERE
+ 			`rentPrice` <![CDATA[<=]]> #{rentPrice}
+ 	</select>
+ 	
+ 	<select id="selectRealEstateByAreaAndPrice" resultType="com.jamesobin.spring.test.mybatis.domain.RealEstate" parameterType="map">
+ 		SELECT
+ 			`id`
+ 			, `realtorId`
+ 			, `address`
+ 			, `area`
+ 			, `type`
+ 			, `price`
+ 			, `rentPrice`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 		FROM
+ 			`real_estate`
+ 		WHERE
+ 			`area` <![CDATA[>=]]> #{area}
+ 			AND `price` <![CDATA[<=]]> #{price}
+ 	</select>
+ 	
+ 	<insert id="insertRealEstateByObject" parameterType="com.jamesobin.spring.test.mybatis.domain.RealEstate">
+ 		INSERT INTO
+ 			`real_estate`
+ 		(
+ 			`realtorId`
+ 			, `address`
+ 			, `area`
+ 			, `type`
+ 			, `price`
+ 		)
+ 		VALUE
+ 		(
+ 			#{realtorId}
+ 			, #{address}
+ 			, #{area}
+ 			, #{type}
+ 			, #{price}
+ 		)
+ 	</insert>
+ 	
+ 	<insert id="insertRealEstate" parameterType="map">
+ 		INSERT INTO
+ 			`real_estate`
+ 		(
+ 			`realtorId`
+ 			, `address`
+ 			, `area`
+ 			, `type`
+ 			, `price`
+ 			, `rentPrice
+ 		)
+ 		VALUE
+ 		(
+ 			#{realtorId}
+ 			, #{address}
+ 			, #{area}
+ 			, #{type}
+ 			, #{price}
+ 			, #{rentPrice}
+ 		)
+ 	</insert>
+ 	
+ 	<update id="updateRealEstate" parameterType="map">
+ 		UPDATE
+ 			`real_estate`
+ 		SET
+ 			`type` = #{type}
+ 			, `price` = #{price}
+ 			, `updatedAt` = now()
+ 		WHERE
+ 			`id` = #{id}
+ 	</update>
+ 	
+ 	<delete id="deleteRealEstate" parameterType="int">
+ 		DELETE FROM
+ 			`real_estate`
+ 		WHERE
+ 			`id` = #{id}
+ 	</delete>
+ </mapper>
