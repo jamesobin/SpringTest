@@ -28,7 +28,7 @@ public class FavoriteController {
 		List<Favorite> favoriteList = favoriteService.getFavoriteList();
 		model.addAttribute("favoriteList", favoriteList);
 		
-		return "ajax/favoriteList";
+		return "ajax/favorite/favoriteList";
 	}
 	
 	// API
@@ -55,7 +55,25 @@ public class FavoriteController {
 	
 	@GetMapping("/input")
 	public String favoriteInput() {
-		return "ajax/favoriteInput";
+		return "ajax/favorite/favoriteInput";
+	}
+	
+	@ResponseBody
+	@PostMapping("/duplicate-url")
+	public Map<String, Boolean> isDuplicateUrl(@RequestParam("url") String url) {
+		boolean isDuplicate = favoriteService.isDuplicateUrl(url);
+		
+		// 중복됨 {"isDuplicate":true}
+		// 중복 안됨 {"isDuplicate":false}
+		Map<String, Boolean> resultMap = new HashMap<>();
+		
+		if(isDuplicate == true) {
+			resultMap.put("isDuplicate", true);
+		} else {
+			resultMap.put("isDuplicate", false);
+		}
+		
+		return resultMap;
 	}
 	
 }
