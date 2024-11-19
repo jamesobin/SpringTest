@@ -35,5 +35,13 @@ public class FavoriteService {
 		}
 	}
 	
+	// 특정 즐겨찾기 삭제
+	// input : 삭제 대상 id(parameter)
+	// 가능 : id와 대응되는 즐겨 찾기 삭제
+	// output : 삭제된 행의 개수
 	
+	public int deleteFavorite(int id) {
+		int count = favoriteRepository.deleteFavorite(id);
+		return count;
+	}
 }
